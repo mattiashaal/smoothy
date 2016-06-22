@@ -26,11 +26,11 @@
                     speed = 2; // Set 'speed' value in px/ms. Higher number makes the scroll faster. Important notice: Make sure the generated 'time' value is greater than 'movingFrequency'.
 
                 if (element = document.getElementById(id)) {
-                    var getScrollTopDocumentAtBegin = getScrollTopDocument(),
-                        distance = getScrollTopElement(element) - getScrollTopDocumentAtBegin,
+                    var scrollTopDocument = getScrollTopDocument(),
+                        distance = getScrollTopElement(element) - scrollTopDocument,
                         time = Math.abs(distance / speed),
                         scrollCount = (time - (movingFrequency % time)) / movingFrequency, // Always make an integer.
-                        distance = (getScrollTopElement(element) - getScrollTopDocumentAtBegin) / scrollCount;
+                        distance = (getScrollTopElement(element) - scrollTopDocument) / scrollCount;
 
                     if (window.history && typeof window.history.pushState == 'function') {
                         window.history.pushState({}, undefined, url + '#' + id); // Change URL for modern browser.
@@ -40,7 +40,7 @@
                         (function() {
                             var scrollPosition = distance * i;
                             setTimeout(function() {
-                                window.scrollTo(0, scrollPosition + getScrollTopDocumentAtBegin); 
+                                window.scrollTo(0, scrollPosition + scrollTopDocument); 
                             }, movingFrequency * i);
                         })();
                     }
