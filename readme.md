@@ -4,7 +4,6 @@ Most smooth-scroll plugins out there are running on a set time. Which sometimes 
 
 ## Roadmap
 
-- Setup build script
 - Add more animation options
 
 ## Install manually
