@@ -35,6 +35,7 @@
             this.options();
         },
 
+        // @source: https://gomakethings.com/vanilla-javascript-version-of-jquery-extend/
         extend: function () {
             var extended = {},
                 deep = false,
@@ -90,6 +91,8 @@
                     links[i].onclick = function () {
                         var href = this.attributes.href.value.toString(),
                             id = href.substr(href.indexOf('#') + 1),
+                            timeStart,
+                            timeElapsed,
                             element;
 
                         if (element = document.getElementById(id)) {
@@ -112,7 +115,6 @@
                             }
                         }
 
-                        var timeStart, timeElapsed;
                         requestAnimationFrame(function (time) {
                             timeStart = time;
                             animate(time);
@@ -128,8 +130,10 @@
                                 end();
                             }
                         }
+
                         function end() {
                             window.scrollTo(0, start + distance);
+                            cancelAnimationFrame(animate);
                         }
 
                         return false;
@@ -139,7 +143,9 @@
 
             // Get the distance between the element and top of the page.
             function getScrollTopElement(element) {
-                var header, top;
+                var header,
+                    top;
+
                 Smoothy.settings.fixedHeader == true ? header = Smoothy.settings.headerHeight : header = 0;
                 top = header * -1;
 
@@ -155,12 +161,43 @@
             function getScrollTopDocument() {
                 return window.pageYOffset !== undefined ? window.pageYOffset : document.documentElement.scrollTop !== undefined ? document.documentElement.scrollTop : document.body.scrollTop;
             };
+
+            // Polyfill for 'requestAnimationFrame' and 'cancelAnimationFrame'.
+            // @source: https://gist.github.com/paulirish/1579671
+            (function() {
+                var lastTime = 0,
+                    vendors = ['ms', 'moz', 'webkit', 'o'];
+
+                for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+                    window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+                    window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'];
+                }
+
+                if (!window.requestAnimationFrame) {
+                    window.requestAnimationFrame = function (callback, element) {
+                        var currentTime = new Date().getTime(),
+                            timeToCall = Math.max(0, 16 - (currentTime - lastTime));
+
+                        var id = window.setTimeout(function () {
+                            callback(currentTime + timeToCall);
+                        }, timeToCall);
+
+                        lastTime = currentTime + timeToCall;
+                        return id;
+                    };
+                }
+
+                if (!window.cancelAnimationFrame) {
+                    window.cancelAnimationFrame = function (id) {
+                        clearTimeout(id);
+                    };
+                }
+            }());
         }
 
     }
 
     document.addEventListener('DOMContentLoaded', Smoothy.init(), false);
-
     return Smoothy;
 
 });
