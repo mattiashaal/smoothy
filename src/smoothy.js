@@ -198,6 +198,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', Smoothy.init(), false);
+
     return Smoothy;
 
 });
