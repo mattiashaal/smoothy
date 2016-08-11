@@ -93,6 +93,7 @@
                             id = href.substr(href.indexOf('#') + 1),
                             timeStart,
                             timeElapsed,
+                            animateId,
                             element;
 
                         if (element = document.getElementById(id)) {
@@ -125,7 +126,7 @@
                             window.scrollTo(0, easing(timeElapsed, start, distance, duration));
 
                             if (timeElapsed < duration) {
-                                requestAnimationFrame(animate);
+                                animateId = requestAnimationFrame(animate);
                             } else {
                                 end();
                             }
@@ -133,7 +134,7 @@
 
                         function end() {
                             window.scrollTo(0, start + distance);
-                            cancelAnimationFrame(animate);
+                            cancelAnimationFrame(animateId);
                         }
 
                         return false;
