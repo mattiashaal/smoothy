@@ -30,6 +30,33 @@ before the closing `</body>` tag.
 </html>
 ```
 
+## Options
+
+Customize Smoothy for your needs using the options object. Available options are `fixedHeader`, `headerHeight`, `speed` and `easingType`.
+
+### fixedHeader
+If user interface using fixed header. Returns `true` or `false`;
+
+### headerHeight
+If fixedHeader is set to `true`. Set the height of your header to avoid your target being hidden behind it.
+
+### speed
+The default speed, set to `1000`, returns pixels per second.
+
+### easingType
+Choose animation type. Available options are `linear`, `easeInOutQuad` and `easeInOutCubic`,
+
+```html
+<script>
+    smoothy.options({
+        fixedHeader: true,
+        headerHeight: 68,
+        speed: 2000,
+        easingType: 'easeInOutQuad'
+    });
+</script>
+```
+
 ## Release history
 
 - 1.0.0
