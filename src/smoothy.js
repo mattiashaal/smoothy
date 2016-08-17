@@ -25,7 +25,7 @@
             fixedHeader: false, // If user interface using fixed header.
             headerHeight: 0, // Set the height of your header to avoid your target being hidden behind it.
             speed: 1000, // Speed set in pixels per second.
-            easing: true // Choose animation type, 'true' equal to 'easeInOutQuad' and 'false' equal to 'linear'.
+            easingType: 'linear' // Choose animation type.
         },
 
         settings: {},
@@ -102,20 +102,6 @@
                                 duration = Math.abs(distance / speed) * 1000;
                         }
 
-                        function easing(timeElapsed, start, distance, duration) {
-                            if (Smoothy.settings.easing == false) {
-                                return distance * timeElapsed / duration + start;
-                            } else if (Smoothy.settings.easing == true) {
-                                timeElapsed = timeElapsed / (duration / 2);
-                                if (timeElapsed < 1) {
-                                    return distance / 2 * timeElapsed * timeElapsed + start;
-                                } else {
-                                    timeElapsed--;
-                                    return -distance / 2 * (timeElapsed * (timeElapsed - 2) - 1) + start;
-                                }
-                            }
-                        }
-
                         requestAnimationFrame(function (time) {
                             timeStart = time;
                             animate(time);
@@ -123,19 +109,19 @@
 
                         function animate(time) {
                             timeElapsed = time - timeStart;
-                            window.scrollTo(0, easing(timeElapsed, start, distance, duration));
+                            window.scrollTo(0, Smoothy.easing(timeElapsed, start, distance, duration));
 
                             if (timeElapsed < duration) {
                                 animateId = requestAnimationFrame(animate);
                             } else {
                                 end();
                             }
-                        }
+                        };
 
                         function end() {
                             window.scrollTo(0, start + distance);
                             cancelAnimationFrame(animateId);
-                        }
+                        };
 
                         return false;
                     };
@@ -194,8 +180,29 @@
                     };
                 }
             }());
-        }
+        },
 
+        easing: function (timeElapsed, start, distance, duration) {
+            if (Smoothy.settings.easingType == 'linear') {
+                return distance * timeElapsed / duration + start;
+            } else if (Smoothy.settings.easingType == 'easeInOutQuad') {
+                timeElapsed = timeElapsed / (duration / 2);
+                if (timeElapsed < 1) {
+                    return distance / 2 * timeElapsed * timeElapsed + start;
+                } else {
+                    timeElapsed--;
+                    return -distance / 2 * (timeElapsed * (timeElapsed - 2) - 1) + start;
+                }
+            } else if (Smoothy.settings.easingType == 'easeInOutCubic') {
+                timeElapsed = timeElapsed / (duration / 2);
+                if (timeElapsed < 1) {
+                    return distance / 2 * timeElapsed * timeElapsed * timeElapsed + start;
+                } else {
+                    timeElapsed -= 2;
+                    return distance / 2 * (timeElapsed * timeElapsed * timeElapsed + 2) + start;
+                }
+            }
+        }
     }
 
     document.addEventListener('DOMContentLoaded', Smoothy.init(), false);
