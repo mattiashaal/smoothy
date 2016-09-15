@@ -183,24 +183,28 @@
         },
 
         easing: function (timeElapsed, start, distance, duration) {
-            if (Smoothy.settings.easingType == 'linear') {
-                return distance * timeElapsed / duration + start;
-            } else if (Smoothy.settings.easingType == 'easeInOutQuad') {
-                timeElapsed = timeElapsed / (duration / 2);
-                if (timeElapsed < 1) {
-                    return distance / 2 * timeElapsed * timeElapsed + start;
-                } else {
-                    timeElapsed--;
-                    return -distance / 2 * (timeElapsed * (timeElapsed - 2) - 1) + start;
-                }
-            } else if (Smoothy.settings.easingType == 'easeInOutCubic') {
-                timeElapsed = timeElapsed / (duration / 2);
-                if (timeElapsed < 1) {
-                    return distance / 2 * timeElapsed * timeElapsed * timeElapsed + start;
-                } else {
-                    timeElapsed -= 2;
-                    return distance / 2 * (timeElapsed * timeElapsed * timeElapsed + 2) + start;
-                }
+            switch (Smoothy.settings.easingType) {
+                case 'linear':
+                    return distance * timeElapsed / duration + start;
+                    break;
+                case 'easeInOutQuad':
+                    timeElapsed = timeElapsed / (duration / 2);
+                    if (timeElapsed < 1) {
+                        return distance / 2 * timeElapsed * timeElapsed + start;
+                    } else {
+                        timeElapsed--;
+                        return -distance / 2 * (timeElapsed * (timeElapsed - 2) - 1) + start;
+                    }
+                    break;
+                case 'easeInOutCubic':
+                    timeElapsed = timeElapsed / (duration / 2);
+                    if (timeElapsed < 1) {
+                        return distance / 2 * timeElapsed * timeElapsed * timeElapsed + start;
+                    } else {
+                        timeElapsed -= 2;
+                        return distance / 2 * (timeElapsed * timeElapsed * timeElapsed + 2) + start;
+                    }
+                    break;
             }
         }
     }
