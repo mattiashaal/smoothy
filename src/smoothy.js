@@ -35,7 +35,7 @@
             this.options();
         },
 
-        // @source: https://gomakethings.com/vanilla-javascript-version-of-jquery-extend/
+        // @reference: https://gomakethings.com/vanilla-javascript-version-of-jquery-extend/
         extend: function () {
             var extended = {},
                 deep = false,
@@ -48,12 +48,12 @@
                 i++;
             };
 
-            // Merge the object into the extended object.
+            // Merge the object into the extended object:
             function merge(obj) {
                 for (var prop in obj) {
                     if (Object.prototype.hasOwnProperty.call(obj, prop)) {
 
-                        // If deep merge and property is an object, merge properties.
+                        // If deep merge and property is an object, merge properties:
                         if (deep && Object.prototype.toString.call(obj[prop]) === '[object Object]') {
                             extended[prop] = extend(true, extended[prop], obj[prop]);
                         } else {
@@ -63,7 +63,7 @@
                 }
             };
 
-            // Loop through each object and conduct a merge.
+            // Loop through each object and conduct a merge:
             for (; i < length; i++) {
                 var obj = arguments[i];
                 merge(obj);
@@ -76,7 +76,7 @@
             var data = Smoothy.extend(Smoothy.data, obj);
             Smoothy.settings = data;
 
-            // Init the scroll function.
+            // Init the scroll function:
             this.scroll();
         },
 
@@ -91,6 +91,7 @@
                     links[i].onclick = function () {
                         var href = this.attributes.href.value.toString(),
                             id = href.substr(href.indexOf('#') + 1),
+                            lastTime = 0,
                             timeStart,
                             timeElapsed,
                             animateId,
@@ -102,7 +103,7 @@
                                 duration = Math.abs(distance / speed) * 1000;
                         }
 
-                        requestAnimationFrame(function (time) {
+                        window.requestAnimationFrame(function (time) {
                             timeStart = time;
                             animate(time);
                         });
@@ -112,7 +113,7 @@
                             window.scrollTo(0, Smoothy.easing(timeElapsed, start, distance, duration));
 
                             if (timeElapsed < duration) {
-                                animateId = requestAnimationFrame(animate);
+                                animateId = window.requestAnimationFrame(animate);
                             } else {
                                 end();
                             }
@@ -120,15 +121,37 @@
 
                         function end() {
                             window.scrollTo(0, start + distance);
-                            cancelAnimationFrame(animateId);
+                            window.cancelAnimationFrame(animateId);
                         };
+
+                        // Polyfill for 'requestAnimationFrame' and 'cancelAnimationFrame':
+                        // @reference: https://gist.github.com/paulirish/1579671
+                        if (window.requestAnimationFrame) {
+                            window.requestAnimationFrame = function (callback, element) {
+                                var currentTime = new Date().getTime(),
+                                    timeToCall = Math.max(0, 16 - (currentTime - lastTime));
+
+                                var id = window.setTimeout(function () {
+                                    callback(currentTime + timeToCall);
+                                }, timeToCall);
+
+                                lastTime = currentTime + timeToCall;
+                                return id;
+                            };
+                        }
+
+                        if (window.cancelAnimationFrame) {
+                            window.cancelAnimationFrame = function (id) {
+                                clearTimeout(id);
+                            };
+                        }
 
                         return false;
                     };
                 }
-            }
+            };
 
-            // Get the distance between the element and top of the page.
+            // Get the distance between the element and top of the page:
             function getScrollTopElement(element) {
                 var header,
                     top;
@@ -144,42 +167,10 @@
                 return top;
             };
 
-            // Get the distance between current document position and top of the page.
+            // Get the distance between current document position and top of the page:
             function getScrollTopDocument() {
                 return window.pageYOffset !== undefined ? window.pageYOffset : document.documentElement.scrollTop !== undefined ? document.documentElement.scrollTop : document.body.scrollTop;
             };
-
-            // Polyfill for 'requestAnimationFrame' and 'cancelAnimationFrame'.
-            // @source: https://gist.github.com/paulirish/1579671
-            (function() {
-                var lastTime = 0,
-                    vendors = ['ms', 'moz', 'webkit', 'o'];
-
-                for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-                    window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-                    window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'];
-                }
-
-                if (!window.requestAnimationFrame) {
-                    window.requestAnimationFrame = function (callback, element) {
-                        var currentTime = new Date().getTime(),
-                            timeToCall = Math.max(0, 16 - (currentTime - lastTime));
-
-                        var id = window.setTimeout(function () {
-                            callback(currentTime + timeToCall);
-                        }, timeToCall);
-
-                        lastTime = currentTime + timeToCall;
-                        return id;
-                    };
-                }
-
-                if (!window.cancelAnimationFrame) {
-                    window.cancelAnimationFrame = function (id) {
-                        clearTimeout(id);
-                    };
-                }
-            }());
         },
 
         easing: function (timeElapsed, start, distance, duration) {
