@@ -70,7 +70,7 @@ Choose animation type. Available options are:
 
 The MIT License
 
-Copyright (c) 2016 Mattias Haal
+Copyright © 2016 Mattias Haal
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
