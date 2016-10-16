@@ -126,7 +126,7 @@
 
                         // Polyfill for 'requestAnimationFrame' and 'cancelAnimationFrame':
                         // @reference: https://gist.github.com/paulirish/1579671
-                        if (window.requestAnimationFrame) {
+                        if (!window.requestAnimationFrame) {
                             window.requestAnimationFrame = function (callback, element) {
                                 var currentTime = new Date().getTime(),
                                     timeToCall = Math.max(0, 16 - (currentTime - lastTime));
@@ -140,7 +140,7 @@
                             };
                         }
 
-                        if (window.cancelAnimationFrame) {
+                        if (!window.cancelAnimationFrame) {
                             window.cancelAnimationFrame = function (id) {
                                 clearTimeout(id);
                             };
