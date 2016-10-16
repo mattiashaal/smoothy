@@ -1,7 +1,4 @@
-.git
 node_modules
-dist/*
-!dist/smoothy.min.js
-src/*
-!src/smoothy.js
+test
 .DS_Store
+
