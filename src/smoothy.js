@@ -2,7 +2,7 @@
  * Smoothy
  * Written by: Mattias Haal
  * Version: 1.0.0
- * Licence: MIT
+ * License: MIT
  * Requirements: None, it is a framework-free plugin
  * Site: https://github.com/kaloja/smoothy
  * Smoothy is inspired by:
