@@ -27,11 +27,11 @@ before the closing `</body>` tag.
 	<body>
 		<nav>
 			<a href="#id">
-				<!-- link to target using hash anchor and id -->
+				<!-- Link to target using hash anchor and id -->
 			</a>
 		</nav>
 		<div id="id">
-			<!-- target element -->
+			<!-- Target element -->
 		</div>
 		<script src="dist/smoothy.min.js"></script>
 		<script>
