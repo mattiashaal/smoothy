@@ -8,7 +8,7 @@ bower install smoothy
 ```
 
 #### Download manually
-Download the (link: https://github.com/kaloja/smoothy/archive/master.zip text: zip file) from the repo. 
+Download the zip file: https://github.com/kaloja/smoothy/archive/master.zip 
 
 #### Clone it
 ```
