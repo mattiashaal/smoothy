@@ -35,7 +35,7 @@ before the closing `</body>` tag.
 		</div>
 		<script src="dist/smoothy.min.js"></script>
 		<script>
-			/* smoothy options */
+			/* Init Smoothy and settings */
 			smoothy.init({
 				speed: 2000,
 				offset: 85,
