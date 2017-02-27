@@ -91,11 +91,11 @@ Speed is the default animation type for Smoothy.
 
 ```html
 <script>
-		smoothy.init({
-				offset: 80,
-				speed: 2000,
-				easing: 'easeInOutQuad'
-		});
+	smoothy.init({
+		offset: 80,
+		speed: 2000,
+		easing: 'easeInOutQuad'
+	});
 </script>
 ```
 
