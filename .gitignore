@@ -1,4 +1,16 @@
-node_modules
-test
+# System files
+# --------------------
 .DS_Store
 
+# Build files
+# --------------------
+/node_modules
+/src/easing.js
+
+# Test files
+# --------------------
+/test
+
+# Deprecated versions
+# --------------------
+/deprecated
