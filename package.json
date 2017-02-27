@@ -2,7 +2,7 @@
   "name": "smoothy",
   "version": "1.0.0",
   "title": "Smoothy",
-  "description": "A smooth-scroll plugin running with average speed or a set time.",
+  "description": "A smooth-scroll plugin running with average speed or a set time",
   "author": "@kaloja",
   "license": "MIT",
   "repository": {
