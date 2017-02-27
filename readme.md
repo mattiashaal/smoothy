@@ -1,9 +1,7 @@
 # Scroll smoothy with average speed or a set time
-
 Most smooth-scroll plugins out there are running on a set time. Which sometimes can behave badly if the distance is very short (results in mega slow scroll) or very long (results in mega fast scroll). Smoothy take care of this by having settings for average speed and set time. Select scroll type after your needs.
 
 ## Install
-
 Use the compiled file in the `dist` folder. Ensure you place the script file
 before the closing `</body>` tag.
 
@@ -27,7 +25,6 @@ before the closing `</body>` tag.
 ```
 
 ## Options
-
 Customize Smoothy for your needs. Available options are: 
 
 - `animate`
@@ -37,15 +34,6 @@ Customize Smoothy for your needs. Available options are:
 - `time`
 - `type`
 
-```html
-<script>
-    smoothy.init({
-        offset: 80,
-        speed: 2000,
-        easing: 'easeInOutQuad'
-    });
-</script>
-```
 ### animate
 Option to turn on/off the scroll animation.
 
@@ -79,6 +67,15 @@ Speed is the default animation type for Smoothy.
 `Options: speed | time`
 `Default: speed`
 
-## Release history
+```html
+<script>
+    smoothy.init({
+        offset: 80,
+        speed: 2000,
+        easing: 'easeInOutQuad'
+    });
+</script>
+```
 
+## Release history
 - 1.0.0
