@@ -1,26 +1,47 @@
 # Scroll smoothy with average speed or a set time
 Most smooth-scroll plugins out there are running on a set time. Which sometimes can behave badly if the distance is very short (results in mega slow scroll) or very long (results in mega fast scroll). Smoothy take care of this by having settings for average speed and set time. Select scroll type after your needs.
 
-## Install
+## Install 
+#### With Bower
+```
+bower install smoothy
+```
+
+#### Download manually
+Download the (link: https://github.com/kaloja/smoothy/archive/master.zip text: zip file) from the repo. 
+
+#### Clone it
+```
+git clone https://github.com/kaloja/smoothy
+```
+
+## Getting started 
 Use the compiled file in the `dist` folder. Ensure you place the script file
 before the closing `</body>` tag.
 
 ```html
 <html>
-    <head>
-        <title>Smoothy</title>
-    </head>
-    <body>
-        <nav>
-            <a href="#id">
-                <!-- link to target using hash anchor and id -->
-            </a>
-        </nav>
-        <div id="id">
-            <!-- target element -->
-        </div>
-        <script src="dist/smoothy.min.js"></script>
-    </body>
+	<head>
+		<title>Smoothy</title>
+	</head>
+	<body>
+		<nav>
+			<a href="#id">
+				<!-- link to target using hash anchor and id -->
+			</a>
+		</nav>
+		<div id="id">
+			<!-- target element -->
+		</div>
+		<script src="dist/smoothy.min.js"></script>
+		<script>
+			smoothy.init({
+				speed: 2000,
+				offset: 85,
+				type: 'time'
+			});
+		</script>
+	</body>
 </html>
 ```
 
@@ -69,11 +90,11 @@ Speed is the default animation type for Smoothy.
 
 ```html
 <script>
-    smoothy.init({
-        offset: 80,
-        speed: 2000,
-        easing: 'easeInOutQuad'
-    });
+		smoothy.init({
+				offset: 80,
+				speed: 2000,
+				easing: 'easeInOutQuad'
+		});
 </script>
 ```
 
