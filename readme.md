@@ -48,36 +48,30 @@ Customize Smoothy for your needs. Available options are:
 ```
 ### animate
 Option to turn on/off the scroll animation.  
-
-Options: `true | false`
-Default: `true`
+`Options: true | false`
+`Default: true`
 
 ### easing
 A collection of easing patterns to choose from. 
-
-Options: `linear | easeInOutQuad | easeInOutCubic`
-Default: `linear`
+`Options: linear | easeInOutQuad | easeInOutCubic`
+`Default: linear`
 
 ### offset
 Option to offset where the animation ends. If the user interface using a fixed header you can offset the headers height to avoid your target being hidden behind it.
-
-Default: `0`
+`Default: 0`
 
 ### speed
 Defines the average speed. Speed returns pixels per second.
-
-Default: `1000`
+`Default: 1000`
 
 ### time
 Defines the animation time.
-
-Default: `500`
+`Default: 500`
 
 ### type
 Speed is the default animation type for Smoothy. 
-
-Options: `speed | time`
-Default: `speed`
+`Options: speed | time`
+`Default: speed`
 
 ## Release history
 
