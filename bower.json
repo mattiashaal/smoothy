@@ -1,0 +1,12 @@
+{
+	"name": "smoothy",
+	"authors": "Mattias Haal",
+	"description": "A smooth-scroll plugin running with average speed or a set time",
+	"version": "1.0.0",
+	"main": "dist/smoothy.min.js",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:kaloja/smoothy.git"
+	}
+}
