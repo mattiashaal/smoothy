@@ -5,6 +5,7 @@
   "description": "A smooth-scroll plugin running with average speed or a set time",
   "author": "@kaloja",
   "license": "MIT",
+  "main" : "dist/smoothy.min.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/kaloja/smoothy.git"
