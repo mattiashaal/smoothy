@@ -1,3 +1,7 @@
 # Bower files
 # --------------------
 bower.json
+
+# Editor config files
+# --------------------
+.editorconfig
