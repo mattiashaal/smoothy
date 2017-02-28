@@ -2,15 +2,21 @@
 Most smooth-scroll plugins out there are running on a set time. Which sometimes can behave badly if the distance is very short (results in mega slow scroll) or very long (results in mega fast scroll). Smoothy take care of this by having settings for average speed and set time. Select animation type after your needs.
 
 ## Install 
-#### With Bower
+
+#### NPM
+```
+npm install smoothy
+```
+
+#### Bower
 ```
 bower install smoothy
 ```
 
-#### Download manually
+#### Download
 Download the zip file: https://github.com/kaloja/smoothy/archive/master.zip 
 
-#### Clone it
+#### Clone
 ```
 git clone https://github.com/kaloja/smoothy
 ```
@@ -38,8 +44,7 @@ before the closing `</body>` tag.
 			/* Init Smoothy and settings */
 			smoothy.init({
 				speed: 2000,
-				offset: 85,
-				type: 'time'
+				offset: 85
 			});
 		</script>
 	</body>
@@ -50,6 +55,7 @@ before the closing `</body>` tag.
 Customize Smoothy for your needs. Available options are: 
 
 - `animate`
+- `callback`
 - `easing`
 - `offset`
 - `speed`
@@ -61,6 +67,19 @@ Option to turn on/off the scroll animation.
 
 `Options: true | false`
 `Default: true`
+
+### callback
+Add a function that will be called when the scroll animation has been completed.
+
+`Default: undefined`
+
+```html
+smoothy.init({
+	callback: function() {
+		console.log('Smoothy scroll animation is done');
+	}
+});
+```
 
 ### easing
 A collection of easing patterns to choose from. 
@@ -88,16 +107,6 @@ Speed is the default animation type for Smoothy.
 
 `Options: speed | time`
 `Default: speed`
-
-```html
-<script>
-	smoothy.init({
-		offset: 80,
-		speed: 2000,
-		easing: 'easeInOutQuad'
-	});
-</script>
-```
 
 ## Release history
 - 1.0.0

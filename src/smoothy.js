@@ -1,10 +1,11 @@
-((window, factory) => {
+(function (window, factory) {
 
 	window.smoothy = factory();
 
 })(window, function () {
 
 	let animateId,
+			callback,
 			currentTime,
 			distance,
 			duration,
@@ -20,21 +21,21 @@
 			time;
 
 	// Merge objects and return a new object:
-  function extend () {
-    for (var i = 1; i < arguments.length; i++) {
-      for (var key in arguments[i]) {
-        if (arguments[i].hasOwnProperty(key)) {
-          arguments[0][key] = arguments[i][key];
-        }
-      }
-    }
+	function extend () {
+		for (var i = 1; i < arguments.length; i++) {
+			for (var key in arguments[i]) {
+				if (arguments[i].hasOwnProperty(key)) {
+					arguments[0][key] = arguments[i][key];
+				}
+			}
+		}
 
-    return arguments[0];
-  };
+		return arguments[0];
+	};
 
-  // A collection of easing patterns:
-  function easing (time, start, distance, duration) {
-  	switch (smoothy.settings.easing) {
+	// A collection of easing patterns:
+	function easing (time, start, distance, duration) {
+		switch (smoothy.settings.easing) {
 			case 'linear':
 				return distance * time / duration + start;
 				break;
@@ -59,10 +60,10 @@
 				}
 				break;
 		}
-  };
+	};
 
-  // Get the distance between the element and top of the page:
-  function topElement (element) {
+	// Get the distance between the element and top of the page:
+	function topElement (element) {
 		offset = smoothy.settings.offset * -1;
 
 		while (element.offsetParent != undefined && element.offsetParent != null) {
@@ -71,17 +72,18 @@
 		}
 
 		return offset;
-  };
+	};
 
-  // Get the distance between current document position and top of the page:
-  function topDocument () {
-  	return window.pageYOffset !== undefined ? window.pageYOffset : document.documentElement.scrollTop !== undefined ? document.documentElement.scrollTop : document.body.scrollTop;
-  };
+	// Get the distance between current document position and top of the page:
+	function topDocument () {
+		return window.pageYOffset !== undefined ? window.pageYOffset : document.documentElement.scrollTop !== undefined ? document.documentElement.scrollTop : document.body.scrollTop;
+	};
 
-	const smoothy = {};
+	const SMOOTHY = {};
 
-	smoothy.settings = {
+	SMOOTHY.settings = {
 		animate: true, // true | false
+		callback: undefined,
 		easing: 'linear', // linear | easeInOutQuad | easeInOutCubic
 		offset: 0,
 		speed: 1000,
@@ -89,18 +91,18 @@
 		type: 'speed' // speed | time
 	};
 
-	smoothy.init = (settings) => {
+	SMOOTHY.init = (settings) => {
 		smoothy.settings = extend(smoothy.settings, settings);
 
 		// Init the scroll function:
 		smoothy.scroll();
 	};
 
-	smoothy.scroll = () => {
-		if (smoothy.settings.animate == true) {
+	SMOOTHY.scroll = () => {
+		if (SMOOTHY.settings.animate == true) {
 			links = document.getElementsByTagName('a');
-			speed = smoothy.settings.speed;
-			time = smoothy.settings.time;
+			speed = SMOOTHY.settings.speed;
+			time = SMOOTHY.settings.time;
 
 			for (var i = 0; i < links.length; i++) {
 				href = (links[i].attributes.href === undefined) ? null : links[i].attributes.href.value.toString();
@@ -113,9 +115,9 @@
 							start = topDocument();
 							distance = topElement(element) - start;
 
-							if (smoothy.settings.type == 'speed') {
+							if (SMOOTHY.settings.type == 'speed') {
 								duration = Math.abs(distance / speed) * 1000;
-							} else if (smoothy.settings.type == 'time') {
+							} else if (SMOOTHY.settings.type == 'time') {
 								duration = time;
 							}
 						}
@@ -132,13 +134,18 @@
 							if (currentTime < duration) {
 								animateId = window.requestAnimationFrame(animate);
 							} else {
-								end();
+								done();
 							}
 						};
 
-						function end () {
+						function done () {
 							window.scrollTo(0, start + distance);
 							window.cancelAnimationFrame(animateId);
+
+							// If it exists, run the callback:
+							if (typeof SMOOTHY.settings.callback === 'function') {
+								SMOOTHY.settings.callback();
+							}
 						};
 
 						// Polyfill for requestAnimationFrame:
@@ -161,6 +168,6 @@
 		}
 	};
 
-	return smoothy;
+	return SMOOTHY;
 
 });
