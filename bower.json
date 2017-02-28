@@ -5,7 +5,7 @@
 	"version": "1.1.1",
 	"main": "src/smoothy.js",
 	"license": "MIT",
-	"ignore": [ "README.md", "LICENSE.md", ".gitignore", ".editorconfig", ".bower.json"],
+	"ignore": [ "readme.md", "LICENSE.md", ".gitignore", ".editorconfig", ".npmignore"],
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:kaloja/smoothy.git"
