@@ -3,7 +3,7 @@
 	"author": "@kaloja",
 	"description": "A smooth-scroll plugin running with average speed or a set time",
 	"version": "1.1.1",
-	"main": "dist/smoothy.min.js",
+	"main": "src/smoothy.js",
 	"license": "MIT",
 	"ignore": [ "README.md", "LICENSE.md", ".gitignore", ".editorconfig", ".bower.json"],
 	"repository": {
