@@ -107,6 +107,3 @@ Speed is the default animation type for Smoothy.
 
 `Options: speed | time`
 `Default: speed`
-
-## Release history
-- 1.0.0
