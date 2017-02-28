@@ -1,11 +1,11 @@
 {
   "name": "smoothy",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "title": "Smoothy",
   "description": "A smooth-scroll plugin running with average speed or a set time",
   "author": "@kaloja",
   "license": "MIT",
-  "main" : "dist/smoothy.min.js",
+  "main": "dist/smoothy.min.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/kaloja/smoothy.git"
