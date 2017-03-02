@@ -5,20 +5,20 @@
 })(window, function () {
 
 	let animateId,
-			callback,
-			currentTime,
-			distance,
-			duration,
-			element,
-			href,
-			item,
-			linkId,
-			links,
-			offset,
-			speed,
-			start,
-			startTime,
-			time;
+		callback,
+		currentTime,
+		distance,
+		duration,
+		element,
+		href,
+		item,
+		linkId,
+		links,
+		offset,
+		speed,
+		start,
+		startTime,
+		time;
 
 	// Merge objects and return a new object:
 	function extend () {
@@ -36,29 +36,29 @@
 	// A collection of easing patterns:
 	function easing (time, start, distance, duration) {
 		switch (smoothy.settings.easing) {
-			case 'linear':
-				return distance * time / duration + start;
-				break;
+		case 'linear':
+			return distance * time / duration + start;
+			break;
 
-			case 'easeInOutQuad':
-				time = time / (duration / 2);
-				if (time < 1) {
-					return distance / 2 * time * time + start;
-				} else {
-					time--;
-					return -distance / 2 * (time * (time - 2) - 1) + start;
-				}
-				break;
+		case 'easeInOutQuad':
+			time = time / (duration / 2);
+			if (time < 1) {
+				return distance / 2 * time * time + start;
+			} else {
+				time--;
+				return -distance / 2 * (time * (time - 2) - 1) + start;
+			}
+			break;
 
-			case 'easeInOutCubic':
-				time = time / (duration / 2);
-				if (time < 1) {
-					return distance / 2 * time * time * time + start;
-				} else {
-					time -= 2;
-					return distance / 2 * (time * time * time + 2) + start;
-				}
-				break;
+		case 'easeInOutCubic':
+			time = time / (duration / 2);
+			if (time < 1) {
+				return distance / 2 * time * time * time + start;
+			} else {
+				time -= 2;
+				return distance / 2 * (time * time * time + 2) + start;
+			}
+			break;
 		}
 	};
 
@@ -115,9 +115,9 @@
 							start = topDocument();
 							distance = topElement(element) - start;
 
-							if (SMOOTHY.settings.type == 'speed') {
+							if (SMOOTHY.settings.type === 'speed') {
 								duration = Math.abs(distance / speed) * 1000;
-							} else if (SMOOTHY.settings.type == 'time') {
+							} else if (SMOOTHY.settings.type === 'time') {
 								duration = time;
 							}
 						}
