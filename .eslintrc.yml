@@ -1,0 +1,10 @@
+env:
+  browser: true
+
+parserOptions:
+  ecmaVersion: 6
+
+rules:
+  indent: [1, 'tab']
+  quotes: [1, 'double']
+  semi: [1, 'always']
