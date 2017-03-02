@@ -16,8 +16,8 @@ var banner = [
 	'/*! ',
 	'<%= pkg.title %> | ',
 	'v<%= pkg.version %> | ',
-	'<%= pkg.author %>',
-	' */',
+	'<%= pkg.author %> ',
+	'*/',
 	'\n'
 ].join('');
 
