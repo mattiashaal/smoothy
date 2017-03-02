@@ -1,11 +1,11 @@
 {
 	"name": "smoothy",
-	"author": "@kaloja",
+	"authors": "@kaloja",
 	"description": "A smooth-scroll plugin running with average speed or a set time",
 	"version": "1.1.1",
 	"main": "src/smoothy.js",
 	"license": "MIT",
-	"ignore": [ "readme.md", "README.md", "LICENSE.md", ".gitignore", ".editorconfig", ".npmignore"],
+	"ignore": [".gitignore", ".editorconfig"],
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:kaloja/smoothy.git"
