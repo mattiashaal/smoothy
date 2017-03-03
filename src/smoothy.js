@@ -35,7 +35,7 @@
 
 	// A collection of easing patterns:
 	function easing (time, start, distance, duration) {
-		switch (smoothy.settings.easing) {
+		switch (SMOOTHY.settings.easing) {
 		case 'linear':
 			return distance * time / duration + start;
 			break;
@@ -64,7 +64,7 @@
 
 	// Get the distance between the element and top of the page:
 	function topElement (element) {
-		offset = smoothy.settings.offset * -1;
+		offset = SMOOTHY.settings.offset * -1;
 
 		while (element.offsetParent != undefined && element.offsetParent != null) {
 			offset += element.offsetTop + (element.clientTop != null ? element.clientTop : 0);
@@ -92,10 +92,10 @@
 	};
 
 	SMOOTHY.init = (settings) => {
-		smoothy.settings = extend(smoothy.settings, settings);
+		SMOOTHY.settings = extend(SMOOTHY.settings, settings);
 
 		// Init the scroll function:
-		smoothy.scroll();
+		SMOOTHY.scroll();
 	};
 
 	SMOOTHY.scroll = () => {
