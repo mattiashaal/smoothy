@@ -4,8 +4,7 @@
 
 })(window, function () {
 
-	let animateId,
-		callback,
+	let callback,
 		currentTime,
 		distance,
 		duration,
@@ -15,6 +14,7 @@
 		linkId,
 		links,
 		offset,
+		renderId,
 		speed,
 		start,
 		startTime,
@@ -108,7 +108,7 @@
 				href = (links[i].attributes.href === undefined) ? null : links[i].attributes.href.value.toString();
 				if (href !== null && href.length > 1 && href.indexOf('#') != -1) {
 
-					links[i].onclick = function () {
+					links[i].addEventListener('click', function() {
 						linkId = this.attributes.href.value.toString().substr(href.indexOf('#') + 1);
 
 						if (element = document.getElementById(linkId)) {
@@ -124,15 +124,15 @@
 
 						window.requestAnimationFrame(function (timestamp) {
 							startTime = timestamp;
-							animate(timestamp);
+							render(timestamp);
 						});
 
-						function animate (timestamp) {
+						function render (timestamp) {
 							currentTime = timestamp - startTime;
 							window.scrollTo(0, easing(currentTime, start, distance, duration));
 
 							if (currentTime < duration) {
-								animateId = window.requestAnimationFrame(animate);
+								renderId = window.requestAnimationFrame(render);
 							} else {
 								done();
 							}
@@ -140,7 +140,7 @@
 
 						function done () {
 							window.scrollTo(0, start + distance);
-							window.cancelAnimationFrame(animateId);
+							window.cancelAnimationFrame(renderId);
 
 							// If it exists, run the callback:
 							if (typeof SMOOTHY.settings.callback === 'function') {
@@ -161,7 +161,7 @@
 								clearTimeout(id);
 							};
 						}
-					};
+					}, false);
 
 				}
 			}
