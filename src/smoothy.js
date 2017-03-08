@@ -109,9 +109,10 @@
 				if (href !== null && href.length > 1 && href.indexOf('#') != -1) {
 
 					links[i].addEventListener('click', function() {
-						linkId = this.attributes.href.value.toString().substr(href.indexOf('#') + 1);
+						var href = this.attributes.href.value.toString(),
+							id = href.substr(href.indexOf('#') + 1);
 
-						if (element = document.getElementById(linkId)) {
+						if (element = document.getElementById(id)) {
 							start = topDocument();
 							distance = topElement(element) - start;
 
