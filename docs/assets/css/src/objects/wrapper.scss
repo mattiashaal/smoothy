@@ -1,0 +1,13 @@
+.o-wrapper {
+	width: 90%;
+	max-width: $md;
+	margin: 0 auto;
+}
+
+.o-wrapper--wide {
+	max-width: $lg;
+}
+
+.o-wrapper--small {
+	max-width: $sm;
+}

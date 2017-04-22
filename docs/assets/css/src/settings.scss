@@ -1,0 +1,45 @@
+// --------------------------------------------------------
+// Screen breakpoints
+// --------------------------------------------------------
+
+$sm: 600px;
+$md: 1000px;
+$lg: 1400px;
+
+// --------------------------------------------------------
+// Colors
+// --------------------------------------------------------
+
+$color-primary: #ff6978; // Begonia
+$color-secondary: #2e4057; // Charcoal
+$color-positive: #a7e8bd; // Sea foam green
+$color-black: #090909; // Smokey black
+$color-white: #ffffff; // Plain white
+
+// --------------------------------------------------------
+// Z-index systems
+// --------------------------------------------------------
+
+$z-layers: (
+	"max": 5,
+	"high": 4,
+	"medium": 3,
+	"low": 2,
+	"base": 1,
+	"below": -1
+);
+
+@function z($layer) {
+	@if not map-has-key($z-layers, $layer) {
+		@warn "No layer found for `#{$layer}` in $z-layers map. Property omitted.";
+	}
+	@return map-get($z-layers, $layer);
+}
+
+// --------------------------------------------------------
+// Powcss settings
+// --------------------------------------------------------
+
+$pow-namespace: 'o';
+$pow-margin: 12px;
+$pow-size: 200px;

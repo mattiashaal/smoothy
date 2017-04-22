@@ -1,0 +1,133 @@
+.c-header {
+	position: relative;
+	padding-top: 64px;
+	padding-bottom: 64px;
+	text-align: center;
+	background-color: $color-primary;
+	background-image: url('../../images/header-sm.jpg');
+	background-size: cover;
+	background-position: center;
+
+	@media (min-width: $sm) {
+		padding-top: 96px;
+		padding-bottom: 96px;
+		background-image: url('../../images/header-md.jpg');
+	}
+
+	@media (min-width: $md) {
+		height: 56.25%;
+		height: 56.25vw;
+		max-height: 96vh;
+		background-image: url('../../images/header-lg.jpg');
+	}
+
+	@media (min-width: $lg) {
+
+	}
+}
+
+.c-header__overlay {
+	position: absolute;
+	z-index: z('base');
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: $color-primary;
+	opacity: 0.95;
+}
+
+.c-header__pattern {
+	position: absolute;
+	z-index: z('low');
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-repeat: repeat;
+	background-position: center;
+	opacity: 0.05;
+}
+
+.c-header__pattern--right {
+	background-image: url('../../images/pattern-right.svg');
+}
+
+.c-header__pattern--left {
+	background-image: url('../../images/pattern-left.svg');
+}
+
+.c-header__content {
+	position: relative;
+	z-index: z('medium');
+	margin-right: auto;
+	margin-left: auto;
+
+	@media (min-width: $sm) {
+		max-width: 50%;
+	}
+
+	@media (min-width: $md) {
+		top: 50%;
+		transform: translateY(-50%);
+	}
+}
+
+.c-header__headline {
+	margin-top: 0;
+	margin-bottom: 32px;
+	font-size: 24px;
+	font-size: 1.5rem;
+	// font-family: montserrat;
+	color: $color-white;
+	text-transform: uppercase;
+
+	@media (min-width: $sm) {
+		margin-bottom: 32px;
+		font-size: 32px;
+		font-size: 2rem;
+	}
+
+	@media (min-width: $md) {
+		margin-bottom: 48px;
+	}
+
+	@media (min-width: $lg) {
+		margin-bottom: 64px;
+	}
+
+	@supports (width: 1vw) {
+		@media (min-height: $sm) {
+			font-size: calc(16px + 4vw);
+			font-size: calc(1rem + 4vw);
+		}
+	}
+}
+
+.c-header__subline {
+	max-width: 600px;
+	margin-top: 32px;
+	margin-right: auto;
+	margin-bottom: 0;
+	margin-left: auto;
+	font-size: 16px;
+	font-size: 1rem;
+	font-weight: 300;
+	color: $color-secondary;
+
+	@media (min-width: $sm) {
+		margin-top: 48px;
+		font-size: 20px;
+		font-size: 1.25rem;
+	}
+
+	@media (min-width: $md) {
+		margin-top: 64px;
+	}
+
+	@media (min-width: $lg) {
+		margin-top: 64px;
+	}
+}
+
+

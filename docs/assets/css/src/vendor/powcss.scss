@@ -1,0 +1,242 @@
+// --------------------------------------------------------
+// Powcss - Next generation layout CSS toolkit
+// It is blazing fast, flexible and super slim.
+// --------------------------------------------------------
+
+// Output configuration:
+//
+// Which parts of Pow should be used?
+//
+// @type boolean
+//
+$pow-output--namespace: true !default;
+$pow-output--layout-core: true !default;
+$pow-output--layout-align: false !default;
+$pow-output--layout-justify: false !default;
+$pow-output--layout-size: false !default;
+
+// Namespace:
+//
+// By default all Pow components are namespaced with 'pow',
+// this allows us to share components without the chance of
+// there being any conflicts.
+//
+// @type string
+//
+$pow-namespace: 'pow' !default;
+
+// Name:
+//
+// By default all Pow components are named with 'layout'.
+// Use whatever name suits you best.
+//
+// @type string
+//
+$pow-name: 'layout' !default;
+
+// Class name:
+//
+// The class name is defined dependent of the namespace.
+//
+// @type null
+//
+$pow-classname: null !default;
+
+// Margin around columns:
+//
+// Define how much space it should be around the columns.
+// The margin can use any type of unit, but for best
+// perfomance use pixels.
+//
+// @type number (px|%|em|rem)
+//
+$pow-margin: 8px !default;
+
+// Column base size:
+//
+// The base size is the foundation of the system. This
+// defines the default size of an element before the
+// remaining space is distributed. You can use any type of
+// unit, but for best perfomance use pixels or percentage.
+// With pixels are the system very flexible and with
+// percentage are the system more rigid.
+//
+// OBS: Edit $pow-size to change the column width. Do not
+// edit the $pow-basis if you don't know what you do. Pow
+// use calc() to work properly when $pow-size is set to
+// use percentage as unit.
+//
+// @type number (px|%|em|rem)
+//
+$pow-size: 300px !default;
+$pow-basis: calc(#{$pow-size} - #{$pow-margin * 2}) !default;
+
+// Column grow:
+//
+// This defines the ability for a flex item to grow if
+// necessary. It accepts a unitless value that serves as a
+// proportion. It dictates what amount of the available
+// space inside the flex container the item should take up.
+// If all items have flex-grow set to 1, the remaining
+// space in the container will be distributed equally to
+// all children.
+//
+// @type number (0|1|2)
+//
+$pow-grow: 1 !default;
+
+// --------------------------------------------------------
+// Core layout
+// --------------------------------------------------------
+
+@if $pow-output--namespace == true {
+
+	$pow-classname: #{$pow-namespace}-#{$pow-name};
+
+} @else if $pow-output--namespace == false {
+
+	$pow-classname: #{$pow-name};
+
+}
+
+@if $pow-output--layout-core == true {
+
+	.#{$pow-classname} {
+		display: flex;
+		flex-flow: row wrap;
+		margin: -$pow-margin;
+	}
+
+	.#{$pow-classname} > * {
+		flex: $pow-grow 0 $pow-basis;
+		max-width: calc(100% - #{$pow-margin * 2});
+		margin: $pow-margin;
+	}
+
+	// Remove the margin from the columns:
+	.#{$pow-classname}--flush,
+	.#{$pow-classname}--flush > * {
+		max-width: 100%;
+		margin: 0;
+	}
+
+	// Stretch the layouts children:
+	.#{$pow-classname}--flex-children > * {
+		display: flex;
+	}
+
+}
+
+// --------------------------------------------------------
+// Align layout
+// --------------------------------------------------------
+
+@if $pow-output--layout-align == true {
+
+	.#{$pow-classname}--align-start {
+		align-items: flex-start;
+	}
+
+	.#{$pow-classname}--align-end {
+		align-items: flex-end;
+	}
+
+	.#{$pow-classname}--align-center {
+		align-items: center;
+	}
+
+	.#{$pow-classname}--align-base {
+		align-items: baseline;
+	}
+
+}
+
+// --------------------------------------------------------
+// Justify layout
+// --------------------------------------------------------
+
+@if $pow-output--layout-justify == true {
+
+	.#{$pow-classname}--justify-start {
+		justify-content: flex-start;
+	}
+
+	.#{$pow-classname}--justify-end {
+		justify-content: flex-end;
+	}
+
+	.#{$pow-classname}--justify-center {
+		justify-content: center;
+	}
+
+	.#{$pow-classname}--justify-between {
+		justify-content: space-between;
+	}
+
+	.#{$pow-classname}--justify-around {
+		justify-content: space-around;
+	}
+
+}
+
+// --------------------------------------------------------
+// Size layout
+// --------------------------------------------------------
+
+// Breakpoints:
+$pow-breakpoints: (
+	sm: 600px,
+	md: 1000px,
+	lg: 1400px
+) !default;
+
+// Base columns:
+$pow-base-columns: 12 !default;
+
+// Selected column sizes:
+$pow-columns: (
+	3,
+	4,
+	6,
+	12
+) !default;
+
+@if $pow-output--namespace == true {
+
+	$pow-classname: #{$pow-namespace}-size;
+
+} @else if $pow-output--namespace == false {
+
+	$pow-classname: size;
+
+}
+
+@mixin output-size($pow-columns, $pow-base-columns, $pow-breakpoint: null) {
+
+	@each $column in $pow-columns {
+		// Set size value:
+		$size: ($column / $pow-base-columns) * 100;
+		// Create class name:
+		$classname: #{$pow-classname}-#{&}#{round($size)}#{$pow-breakpoint};
+		// Create class:
+		.#{$classname} {
+			flex-basis: calc(#{$size}% - #{$pow-margin * 2}) !important;
+		}
+	}
+
+}
+
+@if $pow-output--layout-size == true  {
+
+	// Create selected sizes:
+	@include output-size($pow-columns, $pow-base-columns);
+
+	// Create the responsive classes:
+	@each $key, $value in $pow-breakpoints {
+		// Create each breakpoint:
+		@media (min-width: #{$value}) {
+			@include output-size($pow-columns, $pow-base-columns, #{\@}#{$key});
+		}
+	}
+
+}

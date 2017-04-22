@@ -1,0 +1,36 @@
+.c-footer {
+	background-color: $color-secondary;
+}
+
+.c-footer__content {
+	padding-top: 96px;
+	padding-bottom: 24px;
+	border-bottom: 8px solid $color-primary;
+}
+
+.c-footer__credit {
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 0;
+	margin-right: 32px;
+}
+
+.c-footer__prefix {
+	margin-right: 12px;
+	font-size: 12px;
+	font-size: 0.75rem;
+	font-weight: 700;
+	color: $color-primary;
+}
+
+.c-footer__text,
+.c-footer__link {
+	font-size: 16px;
+	font-size: 1rem;
+	font-weight: 700;
+	color: $color-white;
+}
+
+.c-footer__link {
+	text-decoration: none;
+}

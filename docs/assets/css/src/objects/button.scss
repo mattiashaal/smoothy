@@ -1,0 +1,31 @@
+.o-button {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0;
+	padding: 16px 24px;
+	color: $color-primary;
+	font-size: 12px;
+	font-family: sans-serif;
+	font-weight: 700;
+	text-align: center;
+	text-transform: uppercase;
+	text-decoration: none;
+	letter-spacing: 1px;
+	border-radius: 2px;
+	background-color: $color-secondary;
+	transition: background-color 100ms ease-out;
+	cursor: pointer;
+
+	@media (min-width: $md) {
+		padding: 24px 32px;
+	}
+}
+
+.o-button:hover {
+	background-color: $color-white;
+	transition: background-color 100ms ease-out;
+}
+
+.o-button--positive {
+	background-color: $color-positive;
+}

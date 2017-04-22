@@ -1,0 +1,37 @@
+// Makes it easier to work with percentage unit on element heights:
+html,
+body {
+	height: 100%;
+}
+
+// Background selection color:
+::selection {
+	background-color: $color-primary;
+	color: #fff;
+}
+
+// Responsive images:
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+// Code formatting:
+pre,
+code {
+	color: $color-white;
+	background-color: $color-secondary;
+}
+
+pre {
+	padding: 24px;
+	font-size: 16px;
+	word-wrap: normal;
+	overflow-x: auto;
+	tab-size: 2;
+
+	@media (min-width: $sm) {
+		margin-top: 24px;
+		margin-bottom: 48px;
+	}
+}

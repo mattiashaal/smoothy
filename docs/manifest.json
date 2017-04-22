@@ -1,0 +1,16 @@
+{
+	"lang": "en",
+	"dir": "ltr",
+	"short_name": "smoothy",
+	"name": "Smoothy",
+	"description": "A smooth-scroll plugin running with average speed or a set time.",
+	"start_url": "/",
+	"display": "browser",
+	"background_color": "",
+	"theme_color": "",
+	"icons": [{
+		"src": "/assets/icons/icon.png",
+		"sizes": "144x144",
+		"type": "image/png"
+	}]
+}

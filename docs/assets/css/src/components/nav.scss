@@ -1,0 +1,83 @@
+.c-nav {
+	position: fixed;
+	z-index: z('max');
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	padding: 24px;
+	background-color: $color-primary;
+	will-change: transform;
+
+	@media (min-width: $sm) {
+		justify-content: space-between;
+	}
+
+	@media (min-width: $md) {
+		padding-right: 48px;
+		padding-left: 48px;
+	}
+}
+
+.c-nav.is-transparent {
+	background-color: transparent;
+	transition: background-color 400ms ease-out;
+}
+
+.c-nav__icon {
+	display: inline-block;
+	vertical-align: middle;
+	font-weight: 700;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: $color-white;
+}
+
+.is-transparent .c-nav__icon {
+	color: $color-secondary;
+}
+
+.c-nav__list {
+	display: none;
+	vertical-align: middle;
+	text-align: right;
+
+	@media (min-width: $sm) {
+		display: inline-block;
+	}
+}
+
+.c-nav__item {
+	display: inline-block;
+}
+
+.c-nav__item:not(:last-of-type) {
+	margin-right: 32px;
+}
+
+.c-nav__item:first-of-type {
+	margin-left: 32px;
+}
+
+.c-nav__link {
+	display: inline-block;
+	font-size: 12px;
+	font-weight: 700;
+	color: $color-white;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	text-decoration: none;
+	transition: color 100ms ease-out;
+}
+
+.is-transparent .c-nav__link {
+	color: $color-secondary;
+}
+
+.c-nav__link:not(:last-of-type) {
+	margin-right: 24px;
+}
+
+.c-nav__link:hover {
+	color: $color-white;
+}

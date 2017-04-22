@@ -1,0 +1,63 @@
+html {
+	font-size: 100%;
+	font-family: sans-serif;
+	color: $color-black;
+
+	// Makes the text sharper:
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+p {
+	max-width: 600px;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-weight: 300;
+	line-height: 1.5;
+
+	@media (min-width: $sm) {
+		// font-size: 20px;
+	}
+}
+
+p + p {
+	margin-top: 24px;
+}
+
+a {
+
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+}
+
+h1 {
+
+}
+
+h2 {
+
+}
+
+h3 {
+
+}
+
+h4 {
+
+}
+
+h5 {
+
+}
+
+h6 {
+
+}
+
