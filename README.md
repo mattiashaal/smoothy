@@ -25,11 +25,11 @@ $ git clone https://github.com/kaloja/smoothy
 
 ## Include script
 
+Ensure you're using the file in the `dist` directory, which contains compiled production-ready code. Place the script before the closing `</body>` tag. The `src` directory contains development code.
+
 ```html
 <script src="dist/smoothy.min.js"></script>
 ```
-
-Ensure you're using the file in the `dist` directory, which contains compiled production-ready code. Ensure you place the script before the closing `</body>` tag. The `src` directory contains development code.
 
 ## Include markup
 
@@ -41,13 +41,13 @@ Ensure you're using the file in the `dist` directory, which contains compiled pr
 
 ## Initialize Smoothy
 
+Ensure you initialize Smoothy after its script file.
+
 ```html
 <script>
 	smoothy.init();
 </script>
 ```
-
-Ensure you initialize Smoothy after its script file.
 
 ## Settings
 

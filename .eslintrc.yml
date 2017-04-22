@@ -6,5 +6,5 @@ parserOptions:
 
 rules:
   indent: [1, 'tab']
-  quotes: [1, 'double']
+  quotes: [1, 'single']
   semi: [1, 'always']
