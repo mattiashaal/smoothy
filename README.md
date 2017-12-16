@@ -13,9 +13,6 @@ Most smooth-scroll plugins out there are running on a set time. Which sometimes 
 ## Install
 
 ```sh
-# via bower:
-$ bower install smoothy
-
 # via npm:
 $ npm install smoothy
 
