@@ -1,5 +1,3 @@
-"use strict";
-
 /*! Smoothy docs | v1.0.0 | @kaloja */
 /* panache v1.0.0 | © 2017 @kaloja | https://github.com/kaloja/panache.git */
 !function (e, t) {
@@ -128,61 +126,54 @@
 	}, e;
 });
 
-/*! Smoothy | v1.1.2 | @kaloja */
-"use strict";!function (t, e) {
-	t.smoothy = e();
+/*! Smoothy | v1.1.3 | @kaloja */
+!function (e, t) {
+	e.smoothy = t();
 }(window, function () {
-	function t() {
-		for (var t = 1; t < arguments.length; t++) {
-			for (var e in arguments[t]) {
-				arguments[t].hasOwnProperty(e) && (arguments[0][e] = arguments[t][e]);
+	var e = function e() {
+		for (var e = 1; e < arguments.length; e++) {
+			for (var t in arguments[e]) {
+				arguments[e].hasOwnProperty(t) && (arguments[0][t] = arguments[e][t]);
 			}
 		}return arguments[0];
-	}function e(t, e, n, i) {
-		switch (g.settings.easing) {case "linear":
-				return n * t / i + e;case "easeInOutQuad":
-				return t /= i / 2, t < 1 ? n / 2 * t * t + e : (t--, -n / 2 * (t * (t - 2) - 1) + e);case "easeInOutCubic":
-				return t /= i / 2, t < 1 ? n / 2 * t * t * t + e : (t -= 2, n / 2 * (t * t * t + 2) + e);}
-	}function n(t) {
-		for (d = g.settings.offset * -1; void 0 != t.offsetParent && null != t.offsetParent;) {
-			d += t.offsetTop + (null != t.clientTop ? t.clientTop : 0), t = t.offsetParent;
-		}return d;
-	}function i() {
+	},
+	    t = function t(e, _t, n, i) {
+		switch (o.settings.easing) {case "linear":
+				return n * e / i + _t;case "easeInOutQuad":
+				return e /= i / 2, e < 1 ? n / 2 * e * e + _t : (e--, -n / 2 * (e * (e - 2) - 1) + _t);case "easeInOutCubic":
+				return e /= i / 2, e < 1 ? n / 2 * e * e * e + _t : (e -= 2, n / 2 * (e * e * e + 2) + _t);}
+	},
+	    n = function n(e) {
+		for (var t = o.settings.offset * -1; void 0 != e.offsetParent && null != e.offsetParent;) {
+			t += e.offsetTop + (null != e.clientTop ? e.clientTop : 0), e = e.offsetParent;
+		}return t;
+	},
+	    i = function i() {
 		return void 0 !== window.pageYOffset ? window.pageYOffset : void 0 !== document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop;
-	}var o = void 0,
-	    s = void 0,
-	    a = void 0,
-	    r = void 0,
-	    c = void 0,
-	    u = void 0,
-	    d = void 0,
-	    l = void 0,
-	    f = void 0,
-	    m = void 0,
-	    w = void 0,
-	    v = void 0,
-	    g = {};return g.settings = { animate: !0, callback: void 0, easing: "linear", offset: 0, speed: 1e3, time: 500, type: "speed" }, g.init = function (e) {
-		g.settings = t(g.settings, e), g.scroll();
-	}, g.scroll = function () {
-		if (1 == g.settings.animate) {
-			u = document.getElementsByTagName("a"), f = g.settings.speed, v = g.settings.time;for (var t = 0; t < u.length; t++) {
-				c = void 0 === u[t].attributes.href ? null : u[t].attributes.href.value.toString(), null !== c && c.length > 1 && c.indexOf("#") != -1 && u[t].addEventListener("click", function () {
-					function t(n) {
-						o = n - w, window.scrollTo(0, e(o, m, s, a)), o < a ? l = window.requestAnimationFrame(t) : c();
-					}function c() {
-						window.scrollTo(0, m + s), window.cancelAnimationFrame(l), "function" == typeof g.settings.callback && g.settings.callback();
-					}var u = this.attributes.href.value.toString(),
-					    d = u.substr(u.indexOf("#") + 1);(r = document.getElementById(d)) && (m = i(), s = n(r) - m, "speed" === g.settings.type ? a = 1e3 * Math.abs(s / f) : "time" === g.settings.type && (a = v)), window.requestAnimationFrame(function (e) {
-						w = e, t(e);
-					}), window.requestAnimationFrame || (window.requestAnimationFrame = function (t) {
-						setTimeout(t, 1e3 / 60);
-					}), window.cancelAnimationFrame || (window.cancelAnimationFrame = function (t) {
-						clearTimeout(t);
+	},
+	    o = {};return o.settings = { animate: !0, callback: void 0, easing: "linear", offset: 0, speed: 1e3, time: 500, type: "speed" }, o.init = function (t) {
+		o.settings = e(o.settings, t), o.scroll();
+	}, o.scroll = function () {
+		1 == o.settings.animate && !function () {
+			for (var e = document.getElementsByTagName("a"), s = o.settings.speed, a = o.settings.time, r = void 0, c = void 0, u = void 0, l = void 0, f = void 0, d = 0; d < e.length; d++) {
+				var m = void 0 === e[d].attributes.href ? null : e[d].attributes.href.value.toString();null !== m && m.length > 1 && m.indexOf("#") != -1 && e[d].addEventListener("click", function () {
+					var e = this.attributes.href.value.toString(),
+					    d = e.substr(e.indexOf("#") + 1);(element = document.getElementById(d)) && (l = i(), r = n(element) - l, "speed" === o.settings.type ? c = 1e3 * Math.abs(r / s) : "time" === o.settings.type && (c = a)), window.requestAnimationFrame(function (e) {
+						f = e, m(e);
+					});var m = function g(e) {
+						var n = e - f;window.scrollTo(0, t(n, l, r, c)), n < c ? u = window.requestAnimationFrame(g) : w();
+					},
+					    w = function w() {
+						window.scrollTo(0, l + r), window.cancelAnimationFrame(u), "function" == typeof o.settings.callback && o.settings.callback();
+					};window.requestAnimationFrame || (window.requestAnimationFrame = function (e) {
+						setTimeout(e, 1e3 / 60);
+					}), window.cancelAnimationFrame || (window.cancelAnimationFrame = function (e) {
+						clearTimeout(e);
 					});
 				}, !1);
 			}
-		}
-	}, g;
+		}();
+	}, o;
 });
 
 /**
