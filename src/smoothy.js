@@ -1,25 +1,160 @@
-(function (window, factory) {
+(function (root) {
 
-  window.smoothy = factory();
+  'use strict';
 
-})(window, function () {
+  const SMOOTHY = {};
 
-  // Merge objects and return a new object:
-  const extend = function () {
-    for (let i = 1; i < arguments.length; i++) {
-      for (let key in arguments[i]) {
-        if (arguments[i].hasOwnProperty(key)) {
-          arguments[0][key] = arguments[i][key];
+  SMOOTHY.init = (options = {}) => {
+    // Use options or the defaults:
+    const callback = options.callback;
+    const easing = options.easing || 'linear';
+    const offset = options.offset || 0;
+    const speed = options.speed || 1000;
+    const time = options.time || 500;
+    const type = options.type || 'speed';
+
+    // API:
+    const settings = {
+      callback: callback,
+      easing: easing,
+      offset: offset,
+      speed: speed,
+      time: time,
+      type: type
+    };
+
+    // Init the scroll function:
+    SMOOTHY.scroll(settings);
+  };
+
+  SMOOTHY.scroll = (settings) => {
+    // Private variable cache:
+    let distance;
+    let duration;
+    let elapsedTime;
+    let element;
+    let elementId;
+    let link;
+    let next;
+    let start;
+    let startTime;
+    let stop;
+
+    delegate(function (event) {
+      if (!linkInPage(event.target)) {
+        return;
+      } else {
+        event.preventDefault();
+        event.stopPropagation();
+
+        // Get element id:
+        link = event.target.attributes.href.value.toString();
+        elementId = link.substr(link.lastIndexOf('#') + 1);
+
+        // Get values for the next scroll:
+        if (element = document.getElementById(elementId)) {
+          start = pageOffset();
+          stop = top(element, start);
+          distance = stop - start - settings.offset;
+
+          if (settings.type === 'speed') {
+            duration = Math.abs(distance / settings.speed) * 1000;
+          } else if (settings.type === 'time') {
+            duration = time;
+          }
         }
-      }
-    }
 
-    return arguments[0];
+        // Start render:
+        window.requestAnimationFrame(function (currentTime) {
+          startTime = currentTime;
+          render(currentTime);
+        });
+      }
+    });
+
+    // rAF render helper:
+    function render (currentTime) {
+      // Store time scroll started, if not started already:
+      if (!startTime) {
+        startTime = currentTime;
+      }
+
+      // Determine time spent scrolling so far:
+      elapsedTime = currentTime - startTime;
+
+      // Calculate next scroll position:
+      next = easing(elapsedTime, start, distance, duration, settings);
+
+      // Scroll to it:
+      window.scrollTo(0, next);
+
+      // Check progress:
+      elapsedTime < duration
+        ? window.requestAnimationFrame(render)
+        : done(start, startTime, distance, settings);
+    };
+
+    // Scroll finished helper:
+    function done (start, startTime, distance, settings) {
+      window.scrollTo(0, start + distance);
+
+      // If it exists, run the callback:
+      if (typeof settings.callback === 'function') {
+        settings.callback();
+      }
+
+      // Reset time for next render:
+      startTime = false;
+    };
+  };
+
+  // Get page offset position:
+  function pageOffset () {
+    return window.scrollY || window.pageYOffset;
+  };
+
+  // Get element offset:
+  function top (element, start) {
+    return element.getBoundingClientRect().top + start;
+  };
+
+  // Internal page link check:
+  function linkInPage (link) {
+    const pageUrl = location.hash
+      ? stripHash(location.href)
+      : location.href;
+
+    return link.tagName.toLowerCase() === 'a'
+      && link.hash.length > 0
+      && stripHash(link.href) === pageUrl;
+  }
+
+  // Remove the hash and the trailing content from the url:
+  function stripHash (url) {
+    return url.slice(0, url.lastIndexOf('#'));
+  }
+
+  // Delegate the event handler if the selector match the event target:
+  function delegate (handler) {
+    document.body.addEventListener('click', dispatchEvent, false);
+
+    function dispatchEvent (event) {
+      const target = event.target;
+      const items = document.body.querySelectorAll('a');
+
+      // Check if target is in the items array and return its index:
+      const hasMatch = Array.prototype.indexOf.call(items, target) >= 0;
+
+      // If target has a match in the array, run the handler function:
+      if (hasMatch) {
+        handler.call(target, event);
+      }
+    };
   };
 
   // A collection of easing patterns:
-  const easing = function (time, start, distance, duration) {
-    switch (SMOOTHY.settings.easing) {
+  function easing (time, start, distance, duration, settings) {
+    switch (settings.easing) {
     case 'linear':
       return distance * time / duration + start;
       break;
@@ -46,120 +181,7 @@
     }
   };
 
-  // Get the distance between the element and top of the page:
-  const topElement = function (element) {
-    let offset = SMOOTHY.settings.offset * -1;
+  // Expose smoothy for the global scope:
+  root.smoothy = SMOOTHY;
 
-    while (element.offsetParent != undefined && element.offsetParent != null) {
-      offset += element.offsetTop + (element.clientTop != null ? element.clientTop : 0);
-      element = element.offsetParent;
-    }
-
-    return offset;
-  };
-
-  // Get the distance between current document position and top of the page:
-  const topDocument = function () {
-    return window.pageYOffset !== undefined ? window.pageYOffset : document.documentElement.scrollTop !== undefined ? document.documentElement.scrollTop : document.body.scrollTop;
-  };
-
-  const SMOOTHY = {};
-
-  SMOOTHY.settings = {
-    animate: true, // true | false
-    callback: undefined,
-    easing: 'linear', // linear | easeInOutQuad | easeInOutCubic
-    offset: 0,
-    speed: 1000,
-    time: 500,
-    type: 'speed' // speed | time
-  };
-
-  SMOOTHY.init = (settings) => {
-    SMOOTHY.settings = extend(SMOOTHY.settings, settings);
-
-    // Init the scroll function:
-    SMOOTHY.scroll();
-  };
-
-  SMOOTHY.scroll = () => {
-    if (SMOOTHY.settings.animate == true) {
-      const links = document.getElementsByTagName('a');
-      const speed = SMOOTHY.settings.speed;
-      const time = SMOOTHY.settings.time;
-
-      // Define variables globally inside the SMOOTHY.scroll scope:
-      let distance;
-      let duration;
-      let renderId;
-      let start;
-      let startTime;
-
-      for (let i = 0; i < links.length; i++) {
-        let href = (links[i].attributes.href === undefined) ? null : links[i].attributes.href.value.toString();
-        if (href !== null && href.length > 1 && href.indexOf('#') != -1) {
-
-          links[i].addEventListener('click', function() {
-            let href = this.attributes.href.value.toString();
-            let id = href.substr(href.indexOf('#') + 1);
-
-            if (element = document.getElementById(id)) {
-              start = topDocument();
-              distance = topElement(element) - start;
-
-              if (SMOOTHY.settings.type === 'speed') {
-                duration = Math.abs(distance / speed) * 1000;
-              } else if (SMOOTHY.settings.type === 'time') {
-                duration = time;
-              }
-            }
-
-            window.requestAnimationFrame(function (timestamp) {
-              startTime = timestamp;
-              render(timestamp);
-            });
-
-            const render = function (timestamp) {
-              const currentTime = timestamp - startTime;
-              window.scrollTo(0, easing(currentTime, start, distance, duration));
-
-              if (currentTime < duration) {
-                renderId = window.requestAnimationFrame(render);
-              } else {
-                done();
-              }
-            };
-
-            const done = function () {
-              window.scrollTo(0, start + distance);
-              window.cancelAnimationFrame(renderId);
-
-              // If it exists, run the callback:
-              if (typeof SMOOTHY.settings.callback === 'function') {
-                SMOOTHY.settings.callback();
-              }
-            };
-
-            // Polyfill for requestAnimationFrame:
-            if (!window.requestAnimationFrame) {
-              window.requestAnimationFrame = function (callback) {
-                setTimeout(callback, 1000 / 60);
-              };
-            }
-
-            // Polyfill for cancelAnimationFrame:
-            if (!window.cancelAnimationFrame) {
-              window.cancelAnimationFrame = function (id) {
-                clearTimeout(id);
-              };
-            }
-          }, false);
-
-        }
-      }
-    }
-  };
-
-  return SMOOTHY;
-
-});
+})(window);
