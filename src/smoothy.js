@@ -40,7 +40,11 @@
     let startTime;
     let stop;
 
-    delegate(function (event) {
+    // Start listen for click event:
+    document.body.addEventListener('click', delegate, false);
+
+    // Delegate the event handler if event target match a link on this page:
+    function delegate (event) {
       if (!linkInPage(event.target)) {
         return;
       } else {
@@ -70,7 +74,7 @@
           render(currentTime);
         });
       }
-    });
+    };
 
     // rAF render helper:
     function render (currentTime) {
@@ -133,24 +137,6 @@
   function stripHash (url) {
     return url.slice(0, url.lastIndexOf('#'));
   }
-
-  // Delegate the event handler if the selector match the event target:
-  function delegate (handler) {
-    document.body.addEventListener('click', dispatchEvent, false);
-
-    function dispatchEvent (event) {
-      const target = event.target;
-      const items = document.body.querySelectorAll('a');
-
-      // Check if target is in the items array and return its index:
-      const hasMatch = Array.prototype.indexOf.call(items, target) >= 0;
-
-      // If target has a match in the array, run the handler function:
-      if (hasMatch) {
-        handler.call(target, event);
-      }
-    };
-  };
 
   // A collection of easing patterns:
   function easing (time, start, distance, duration, settings) {
