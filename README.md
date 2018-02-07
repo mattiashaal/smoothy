@@ -61,12 +61,6 @@ smoothy.init({
 });
 ```
 
-#### animate
-
-Option to turn on or off the scroll animation.
-
-`options: true | false => default: true`
-
 #### callback
 
 Add a function that will be called when the scroll animation has been completed.
