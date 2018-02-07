@@ -43,7 +43,7 @@
     // Start listen for click event:
     document.body.addEventListener('click', delegate, false);
 
-    // Delegate the event handler if event target match a link on this page:
+    // Delegate the event handler if the event target match a link on the page:
     function delegate (event) {
       if (!linkInPage(event.target)) {
         return;
