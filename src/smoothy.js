@@ -64,7 +64,7 @@
           if (settings.type === 'speed') {
             duration = Math.abs(distance / settings.speed) * 1000;
           } else if (settings.type === 'time') {
-            duration = time;
+            duration = settings.time;
           }
         }
 
